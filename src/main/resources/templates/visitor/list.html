@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{visitor.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{visitor.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/visitors/add}" class="btn btn-primary ms-2">[[#{visitor.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${visitors.empty}">[[#{visitor.list.empty}]]</div>
+            <div th:if="${!visitors.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{visitor.id.label}]]</th>
+                            <th scope="col">[[#{visitor.firstName.label}]]</th>
+                            <th scope="col">[[#{visitor.lastName.label}]]</th>
+                            <th scope="col">[[#{visitor.company.label}]]</th>
+                            <th scope="col">[[#{visitor.visiting.label}]]</th>
+                            <th scope="col">[[#{visitor.email.label}]]</th>
+                            <th scope="col">[[#{visitor.vehicleOnSite.label}]]</th>
+                            <th scope="col">[[#{visitor.licensePlate.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="visitor : ${visitors}">
+                            <td>[[${visitor.id}]]</td>
+                            <td>[[${visitor.firstName}]]</td>
+                            <td>[[${visitor.lastName}]]</td>
+                            <td>[[${visitor.company}]]</td>
+                            <td>[[${visitor.visiting}]]</td>
+                            <td>[[${visitor.email}]]</td>
+                            <td>[[${visitor.vehicleOnSite}]]</td>
+                            <td>[[${visitor.licensePlate}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/visitors/edit/{id}(id=${visitor.id})}" class="btn btn-sm btn-secondary">[[#{visitor.list.edit}]]</a>
+                                    <form th:action="@{/visitors/delete/{id}(id=${visitor.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{visitor.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

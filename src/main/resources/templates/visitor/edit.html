@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{visitor.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{visitor.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/visitors}" class="btn btn-secondary">[[#{visitor.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('visitor')}" />
+            <form th:action="${requestUri}" method="post" novalidate="">
+                <input type="submit" th:value="#{visitor.edit.headline}" class="btn btn-primary mt-4 mb-4" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='firstName', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='lastName', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='company', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='visiting', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='email', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='vehicleOnSite', type='checkbox')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='licensePlate')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='legalAccepted', type='checkbox')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='inDate', required=true, inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='outDate', required=true, inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='signOut', type='checkbox')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='visitor', field='pdfFilePath')}" />
+                <input type="submit" th:value="#{visitor.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
