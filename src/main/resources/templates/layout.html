@@ -10,10 +10,10 @@
         <link th:href="@{/css/app.css}" rel="stylesheet" />
         <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
         <script th:src="@{/webjars/htmx.org/2.0.4/dist/htmx.min.js}" defer></script>
-        <script th:src="@{/webjars/flatpickr/4.6.13/dist/flatpickr.min.js}" defer></script>
+        <script th:src="@{/webjars/flatpickr/4.6.13/dist/flatpickr.min.js}" defer></script>        
         <script th:src="@{/js/app.js}" defer></script>
     </head>
-    <body hx-boost="true">
+   	<body>
         <header class="bg-light">
             <div class="container">
 <!--                <nav class="navbar navbar-light navbar-expand-md">
@@ -50,5 +50,52 @@
                 <div layout:fragment="content" />
             </div>
         </main>
+         <script th:inline="javascript">         	
+         	let vehOnSite = document.getElementsByName("vehicleOnSite")[0];
+         	vehOnSite.addEventListener('change',function(){
+         	let licPlate=document.getElementById('licensePlate');
+         	licPlate.disabled= this.checked?false:true;
+         	if(licPlate.disabled)
+         	{
+         		licPlate.value=null;
+         	}
+         	});
+         	
+         	let legalAccept = document.getElementsByName("legalAccepted")[0];
+         	legalAccept.addEventListener('change',function(){
+         	let btnAdd=document.getElementById('btnAdd');
+         	btnAdd.disabled= this.checked?false:true;
+         	let modalNda = document.getElementById("modalNda");
+         	if(this.checked)
+         	{             	
+         	  console.log(modalNda);         	 
+         	} 
+         	         	       
+         	});
+         	
+          	let showHead1 = [[${showChoose}]]=='true'?true:false;      
+      		let showHead2 = [[${showRegForm}]]=='true'?true:false;
+      		let head1=document.getElementById('collapseOne');
+      		let head2=document.getElementById('collapseTwo');
+      		let btnOne = document.getElementById('btnOne');
+      		let btnTwo = document.getElementById('btnTwo');
+      		if(showHead1)
+      		{
+      			btnOne.classList.remove('collapsed');
+      			head1.classList.add('show');
+      		} else{
+      		btnOne.classList.add('collapsed');
+      			head1.classList.remove('show');
+      		}
+      		if(showHead2)
+      		{       	
+      		btnTwo.classList.remove('collapsed');
+      		head2.classList.add('show');
+      			
+      		} else{
+      		btnTwo.classList.add('collapsed');
+      		head2.classList.remove('show');
+      		}
+      </script>         
     </body>
 </html>
